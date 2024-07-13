@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -35,9 +36,9 @@ public class Postagem {
 	@UpdateTimestamp
 	private LocalDateTime data;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("tema")
-	private List<Postagem> postagem;
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 
 	public long getId_postagem() {
 		return id_postagem;
@@ -71,13 +72,17 @@ public class Postagem {
 		this.data = data;
 	}
 
-	public List<Postagem> getPostagem() {
-		return postagem;
+	public Tema getTema() {
+		return tema;
 	}
 
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
+	
+	
+
+
 	
 	
 
